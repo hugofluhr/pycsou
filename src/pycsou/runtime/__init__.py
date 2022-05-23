@@ -19,7 +19,8 @@ class Width(enum.Enum):
     HALF = np.dtype(np.half)
     SINGLE = np.dtype(np.single)
     DOUBLE = np.dtype(np.double)
-    QUAD = np.dtype(np.longdouble)
+    if np.dtype(np.longdouble) != DOUBLE : # python native for M1 chips has no longdouble precision (see https://github.com/pymc-devs/pymc-resources/issues/90#issuecomment-933230054)
+        QUAD = np.dtype(np.longdouble)
 
 
 class Precision(contextlib.AbstractContextManager):
